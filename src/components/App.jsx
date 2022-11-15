@@ -1,19 +1,39 @@
+import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getTrendingMovies } from 'services/api';
 import { GlobalStyle } from './GlobalStyle';
-export const App = () => {
-  const result = async () => {
-    const result = await getTrendingMovies();
-    return result;
-  };
+import Home from 'pages/Home';
+import Movies from 'pages/Movies';
+import SharedLayout from './SharedLayout/SharedLayout';
+import MovieDetails from 'pages/MovieDetails';
+import Cast from './Cast/Cast';
+import Reviews from './Reviews/Reviews';
 
-  const value = result();
+export const App = () => {
+  const [trendingMovies, setTrendingMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const trendingMovies = await getTrendingMovies();
+      setTrendingMovies(trendingMovies);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
-      <div>React homework template</div>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home trending={trendingMovies} />} />
+          <Route path="movies" element={<Movies />} />
+        </Route>
+        <Route path="movies/:id" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+      </Routes>
+
       <GlobalStyle />
     </>
   );
 };
-
-//basename to add
