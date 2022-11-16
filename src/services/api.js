@@ -13,7 +13,21 @@ export const getMovieById = async movieId => {
   const { data } = await axios.get(`/movie/${movieId}?api_key=${KEY}`);
   return data;
 };
-// export const getCredits = async ()=>{}
+
+// export const getGenres = async () => {
+//   const res = await axios.get(
+//     `/genre/movie/list?api_key=${KEY}&language=en-US`
+//   );
+//   console.log(res.genres);
+//   return res;
+// };
+export const getCredits = async movieId => {
+  const { data } = await axios.get(
+    `/movie/${movieId}/credits?api_key=${KEY}&language=en-US`
+  );
+  console.log(data.cast);
+  return data.cast;
+};
 // export const getReviews = async () => {};
 // export const getDetails = async movie => {
 //   const response = await axios.get(`/search/${movie}?api_key=${KEY}`);
