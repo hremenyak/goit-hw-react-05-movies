@@ -3,11 +3,10 @@
 
 const Movies = () => {
   return (
-    <>
+    <div>
       <div>MOVIES</div>
-      {/* <MovieDetails />
-      <Outlet /> */}
-    </>
+      <input type="text" />
+    </div>
   );
 };
 

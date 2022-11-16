@@ -9,6 +9,14 @@ export const getTrendingMovies = async () => {
   return data.results;
 };
 
-// export const getDetails = async ()=>{}
+export const getMovieById = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}?api_key=${KEY}`);
+  return data;
+};
 // export const getCredits = async ()=>{}
 // export const getReviews = async () => {};
+// export const getDetails = async movie => {
+//   const response = await axios.get(`/search/${movie}?api_key=${KEY}`);
+//   console.log(response);
+//   return response.data;
+// };

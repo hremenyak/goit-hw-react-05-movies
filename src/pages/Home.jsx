@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import { TrendingMovieLink, List, ListItem } from './Home.styled';
 const Home = ({ trending }) => {
   return (
@@ -6,12 +7,13 @@ const Home = ({ trending }) => {
       <List>
         {trending.map(movie => (
           <ListItem key={movie.id}>
-            <TrendingMovieLink to={`${movie.id}`}>
+            <TrendingMovieLink to={`movies/${movie.id}`}>
               {movie.title || movie.name}
             </TrendingMovieLink>
           </ListItem>
         ))}
       </List>
+      <Outlet />
     </main>
   );
 };
