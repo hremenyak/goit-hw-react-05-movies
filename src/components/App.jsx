@@ -8,8 +8,6 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import MovieDetails from 'pages/MovieDetails/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-// import Cast from './Cast/Cast';
-// import Reviews from './Reviews/Reviews';
 
 export const App = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -39,3 +37,5 @@ export const App = () => {
     </>
   );
 };
+
+// go back button, fallback images, css, reviews / Not Found / searchbox??

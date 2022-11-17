@@ -2,31 +2,34 @@ import { useEffect, useState } from 'react';
 import { getMoviesByName } from 'services/api';
 
 const Movies = () => {
-  const [value, setValue] = useState('love');
-
-  const handleChange = e => {
-    setValue(e.target.value);
-  };
+  const [movieName, setMovieName] = useState('love');
+  const [movies, setMovies] = useState(null);
 
   const handleSubmit = e => {
     e.preventDefault();
+    const movieName = e.target.movie.value;
+    setMovieName(movieName);
   };
   useEffect(() => {
     const fetchdata = async () => {
-      const movie = await getMoviesByName(value);
-      console.log(movie);
+      const movies = await getMoviesByName(movieName);
+      console.log(movies.results, 'useEffect results');
+      setMovies(movies.results);
     };
     fetchdata();
-  }, [value]);
+  }, [movieName]);
 
-  if (!value) {
+  if (!movieName) {
+    return;
+  }
+  if (!movies) {
     return;
   }
   return (
     <div>
       <div>MOVIES</div>
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} value={value} />
+        <input type="text" name="movie" />
         <button type="submit">Search</button>
       </form>
     </div>
@@ -37,4 +40,4 @@ export default Movies;
 
 //LOADER
 
-//fix when the value is an empty string  and when handle change or handle submit??
+//
