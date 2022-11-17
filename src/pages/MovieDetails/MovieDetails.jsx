@@ -23,31 +23,32 @@ const MovieDetails = () => {
   if (!movie) {
     return;
   }
-
-  const imageSRC = IMAGEURL + movie.poster_path;
-  const userScore = Math.round((Number(movie.vote_average) * 100) / 10);
-  const genres = movie.genres.map(genre => genre.name).join(' ');
+  const { genres, title, release_date, overview, vote_average, poster_path } =
+    movie;
+  const imageSRC = IMAGEURL + poster_path;
+  const userScore = Math.round((Number(vote_average) * 100) / 10);
+  const movieGenres = genres.map(genre => genre.name).join(' ');
   return (
     <div>
       <MovieCard>
         <div style={{ width: '600px' }}>
           {' '}
-          <img src={`${imageSRC}`} alt={movie.title} width={360} height={200} />
+          <img src={`${imageSRC}`} alt={title} width={360} height={200} />
         </div>
 
         <div>
           <h2>
-            {movie.title} ({movie.release_date.slice(0, 4)})
+            {title} ({release_date.slice(0, 4)})
           </h2>
           <p>
             <b>User score:</b> {userScore}%
           </p>
           <p>
-            <b>Overview:</b> <span>{movie.overview}</span>
+            <b>Overview:</b> <span>{overview}</span>
           </p>
           <p>
             <b>
-              Genres: <span>{genres}</span>
+              Genres: <span>{movieGenres}</span>
             </b>
           </p>
         </div>

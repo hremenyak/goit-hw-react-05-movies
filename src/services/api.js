@@ -5,7 +5,7 @@ const KEY = 'fb0f8889c4de169f6f8eba7a95a6c733';
 
 export const getTrendingMovies = async () => {
   const { data } = await axios.get(`/trending/all/day?api_key=${KEY}`);
-  console.log(data.results);
+  // console.log(data.results);
   return data.results;
 };
 
@@ -18,11 +18,19 @@ export const getCredits = async movieId => {
   const { data } = await axios.get(
     `/movie/${movieId}/credits?api_key=${KEY}&language=en-US`
   );
-  console.log(data.cast);
+  // console.log(data.cast);
   return data.cast;
 };
 export const getReviews = async movieId => {
   const { data } = await axios.get(`/movie/${movieId}/reviews?api_key=${KEY}`);
-  console.log(data.results, 'reviews'); // ARRAY OF OBJECTS
+
   return data.results;
+};
+
+export const getMoviesByName = async query => {
+  const { data } = await axios.get(
+    `/search/movie?api_key=${KEY}&query=${query}&language=en-US&page=1&include_adult=false`
+  );
+  console.log(data);
+  return data;
 };

@@ -23,12 +23,12 @@ const Reviews = () => {
     <>
       <div>
         {reviews.length > 0 &&
-          reviews.map(review => (
-            <li key={review.id}>
+          reviews.map(({ id, author, content }) => (
+            <li key={id}>
               <p>
-                <b>Author:</b> {review.author}
+                <b>Author:</b> {author}
               </p>
-              <p>{review.content}</p>
+              <p>{content}</p>
             </li>
           ))}
       </div>
