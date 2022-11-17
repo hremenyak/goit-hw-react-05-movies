@@ -26,6 +26,7 @@ const MovieDetails = () => {
 
   const imageSRC = IMAGEURL + movie.poster_path;
   const userScore = Math.round((Number(movie.vote_average) * 100) / 10);
+  const genres = movie.genres.map(genre => genre.name).join(' ');
   return (
     <div>
       <MovieCard>
@@ -39,13 +40,15 @@ const MovieDetails = () => {
             {movie.title} ({movie.release_date.slice(0, 4)})
           </h2>
           <p>
-            <b>User score:</b> {userScore}%{' '}
+            <b>User score:</b> {userScore}%
           </p>
           <p>
             <b>Overview:</b> <span>{movie.overview}</span>
           </p>
           <p>
-            <b>Genres:</b>
+            <b>
+              Genres: <span>{genres}</span>
+            </b>
           </p>
         </div>
       </MovieCard>

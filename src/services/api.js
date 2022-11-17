@@ -14,13 +14,6 @@ export const getMovieById = async movieId => {
   return data;
 };
 
-// export const getGenres = async () => {
-//   const res = await axios.get(
-//     `/genre/movie/list?api_key=${KEY}&language=en-US`
-//   );
-//   console.log(res.genres);
-//   return res;
-// };
 export const getCredits = async movieId => {
   const { data } = await axios.get(
     `/movie/${movieId}/credits?api_key=${KEY}&language=en-US`
@@ -28,9 +21,8 @@ export const getCredits = async movieId => {
   console.log(data.cast);
   return data.cast;
 };
-// export const getReviews = async () => {};
-// export const getDetails = async movie => {
-//   const response = await axios.get(`/search/${movie}?api_key=${KEY}`);
-//   console.log(response);
-//   return response.data;
-// };
+export const getReviews = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}/reviews?api_key=${KEY}`);
+  console.log(data.results, 'reviews'); // ARRAY OF OBJECTS
+  return data.results;
+};
