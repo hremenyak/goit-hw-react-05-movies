@@ -1,37 +1,50 @@
 import { useEffect, useState } from 'react';
 import { getMoviesByName } from 'services/api';
+import { List, ListItem, MovieLink, Button } from './Movies.styled';
 
 const Movies = () => {
-  const [movieName, setMovieName] = useState('love');
-  const [movies, setMovies] = useState(null);
+  const [movieName, setMovieName] = useState('');
+  const [movies, setMovies] = useState([]);
 
   const handleSubmit = e => {
     e.preventDefault();
     const movieName = e.target.movie.value;
     setMovieName(movieName);
+    // console.log('submit', movieName);
   };
+
   useEffect(() => {
     const fetchdata = async () => {
-      const movies = await getMoviesByName(movieName);
-      console.log(movies.results, 'useEffect results');
-      setMovies(movies.results);
+      if (!movieName) {
+        return;
+      }
+      try {
+        const movies = await getMoviesByName(movieName);
+        console.log(movies.results, 'useEffect results after submit');
+        setMovies(movies.results);
+      } catch (e) {
+        console.log(e, 'There has been a mistake');
+      }
     };
     fetchdata();
   }, [movieName]);
 
-  if (!movieName) {
-    return;
-  }
-  if (!movies) {
-    return;
-  }
   return (
     <div>
-      <div>MOVIES</div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="movie" />
-        <button type="submit">Search</button>
+        <input type="text" name="movie" placeholder="Enter the movie..." />
+        <Button type="submit">Search</Button>
       </form>
+      <List>
+        {movies.map(movie => (
+          <ListItem key={movie.id}>
+            {' '}
+            <MovieLink to={`${movie.id}`}>
+              {movie.title || movie.name}
+            </MovieLink>
+          </ListItem>
+        ))}
+      </List>
     </div>
   );
 };

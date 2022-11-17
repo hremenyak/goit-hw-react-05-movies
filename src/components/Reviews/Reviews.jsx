@@ -9,8 +9,12 @@ const Reviews = () => {
   console.log(movieId);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getReviews(movieId);
-      setReviews(data);
+      try {
+        const data = await getReviews(movieId);
+        setReviews(data);
+      } catch (e) {
+        console.log(e, 'There has been a mistake');
+      }
     };
     fetchData();
   }, [movieId]);
