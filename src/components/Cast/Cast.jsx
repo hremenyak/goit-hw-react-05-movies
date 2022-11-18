@@ -31,26 +31,32 @@ const Cast = () => {
 
   return (
     <Section>
-      <List>
-        {cast.map(({ id, profile_path, name, character }) => {
-          const imageSRC = profile_path ? IMAGEURL + profile_path : blankImage;
-          return (
-            <ListItem key={id}>
-              <img src={imageSRC} alt={name} width={200} />
-              <div>
-                {' '}
-                <p>
-                  <span>{name}</span>
-                </p>
-                <p>
-                  <b>Character:</b>
-                  <span> {character}</span>
-                </p>
-              </div>
-            </ListItem>
-          );
-        })}
-      </List>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <List>
+          {cast.map(({ id, profile_path, name, character }) => {
+            const imageSRC = profile_path
+              ? IMAGEURL + profile_path
+              : blankImage;
+            return (
+              <ListItem key={id}>
+                <img src={imageSRC} alt={name} width={200} />
+                <div>
+                  {' '}
+                  <p>
+                    <span>{name}</span>
+                  </p>
+                  <p>
+                    <b>Character:</b>
+                    <span> {character}</span>
+                  </p>
+                </div>
+              </ListItem>
+            );
+          })}
+        </List>
+      )}
     </Section>
   );
 };

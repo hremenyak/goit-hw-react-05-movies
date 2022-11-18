@@ -28,20 +28,24 @@ const Reviews = () => {
   }
 
   return (
-    <>
-      <Wrapper>
-        {reviews.length > 0 &&
-          reviews.map(({ id, author, content }) => (
-            <Item key={id}>
-              <p>
-                <b>Author: {author}</b>
-              </p>
-              <p>"{content}"</p>
-            </Item>
-          ))}
-      </Wrapper>
+    <div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Wrapper>
+          {reviews.length > 0 &&
+            reviews.map(({ id, author, content }) => (
+              <Item key={id}>
+                <p>
+                  <b>Author: {author}</b>
+                </p>
+                <p>"{content}"</p>
+              </Item>
+            ))}
+        </Wrapper>
+      )}
       {!reviews.length && <p>There are no reviews for this film yet.</p>}
-    </>
+    </div>
   );
 };
 

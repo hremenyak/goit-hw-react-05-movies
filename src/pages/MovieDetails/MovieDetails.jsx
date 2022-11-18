@@ -46,36 +46,41 @@ const MovieDetails = () => {
   const imageSRC = poster_path ? IMAGEURL + poster_path : blankImage;
   const userScore = Math.round((Number(vote_average) * 100) / 10);
   const movieGenres = genres.map(genre => genre.name).join(' ');
+  const releaseDate = release_date.slice(0, 4);
   return (
     <>
       <Wrapper>
         <BackButton>Go back</BackButton>
 
-        <MovieCard>
-          <ImageWrapper>
-            <img src={`${imageSRC}`} alt={title} width={360} height={200} />
-          </ImageWrapper>
-          <div>
-            <Title>
-              {title} ({release_date.slice(0, 4)})
-            </Title>
-            <ul>
-              <InfoItem>
-                <p>User Score: {userScore}%</p>
-              </InfoItem>
-              <InfoItem>
-                <b>Overview</b>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <MovieCard>
+            <ImageWrapper>
+              <img src={`${imageSRC}`} alt={title} width={360} height={200} />
+            </ImageWrapper>
+            <div>
+              <Title>
+                {title} {`(${releaseDate})`}
+              </Title>
+              <ul>
+                <InfoItem>
+                  <p>User Score: {userScore}%</p>
+                </InfoItem>
+                <InfoItem>
+                  <b>Overview</b>
 
-                <p>{overview}</p>
-              </InfoItem>
-              <InfoItem>
-                <b>Genres</b>
+                  <p>{overview}</p>
+                </InfoItem>
+                <InfoItem>
+                  <b>Genres</b>
 
-                <p>{movieGenres}</p>
-              </InfoItem>
-            </ul>
-          </div>
-        </MovieCard>
+                  <p>{movieGenres}</p>
+                </InfoItem>
+              </ul>
+            </div>
+          </MovieCard>
+        )}
       </Wrapper>
       <ExtraInfoSection>
         <ExtraInfoTitle> Additional information</ExtraInfoTitle>
@@ -99,5 +104,4 @@ const MovieDetails = () => {
 
 export default MovieDetails;
 
-// add try catch !! to take care of errors hte english has no movie details
-// prop types
+// lazy and suspense???
