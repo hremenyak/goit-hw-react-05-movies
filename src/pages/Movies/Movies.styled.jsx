@@ -31,3 +31,9 @@ export const Button = styled.button`
     color: white;
   }
 `;
+
+export const Input = styled.input`
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px 10px;
+`;

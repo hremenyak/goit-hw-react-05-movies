@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCredits } from 'services/api';
 import { useParams } from 'react-router-dom';
 import blankImage from '../../images/blank_profile.png';
-import { ListItem, Section } from './Cast.styled';
+import { ListItem, Section, List } from './Cast.styled';
 
 const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
@@ -28,7 +28,7 @@ const Cast = () => {
 
   return (
     <Section>
-      <ul>
+      <List>
         {cast.map(({ id, profile_path, name, character }) => {
           const imageSRC = profile_path ? IMAGEURL + profile_path : blankImage;
           return (
@@ -47,7 +47,7 @@ const Cast = () => {
             </ListItem>
           );
         })}
-      </ul>
+      </List>
     </Section>
   );
 };

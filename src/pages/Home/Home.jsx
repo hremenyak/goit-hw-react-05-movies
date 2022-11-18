@@ -1,14 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { TrendingMovieLink, List, ListItem } from './Home.styled';
+
 const Home = ({ trending }) => {
+  const location = useLocation();
   return (
     <main>
       <h1> Trending today</h1>
       <List>
-        {trending.map(movie => (
-          <ListItem key={movie.id}>
-            <TrendingMovieLink to={`movies/${movie.id}`}>
-              {movie.title || movie.name}
+        {trending.map(({ id, title, name }) => (
+          <ListItem key={id}>
+            <TrendingMovieLink
+              to={`movies/${id}`}
+              state={{ from: location.pathname }}
+            >
+              {title || name}
             </TrendingMovieLink>
           </ListItem>
         ))}

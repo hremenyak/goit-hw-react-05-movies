@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-import { InfoLink } from './MovieDetails.styled';
+import {
+  InfoItem,
+  InfoLink,
+  Title,
+  Wrapper,
+  ImageWrapper,
+  ExtraInfoSection,
+  ListItem,
+} from './MovieDetails.styled';
 import { getMovieById } from 'services/api';
 import { MovieCard } from './MovieDetails.styled';
 import blankImage from '../../images/white_image.png';
+import BackButton from 'components/BackButton/BackButton';
 
 const IMAGEURL = 'https://image.tmdb.org/t/p/w500/';
+
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -32,52 +42,53 @@ const MovieDetails = () => {
   const userScore = Math.round((Number(vote_average) * 100) / 10);
   const movieGenres = genres.map(genre => genre.name).join(' ');
   return (
-    <div>
-      <MovieCard>
-        <div style={{ width: '600px' }}>
-          {' '}
-          <img src={`${imageSRC}`} alt={title} width={360} height={200} />
-        </div>
+    <>
+      <Wrapper>
+        <BackButton>Go back</BackButton>
 
-        <div>
-          <h2>
-            {title} ({release_date.slice(0, 4)})
-          </h2>
-          <ul>
-            <li>
-              <b>User score:</b>
-              <p>{userScore}%</p>
-            </li>
-            <li>
-              <b>Overview:</b>
+        <MovieCard>
+          <ImageWrapper>
+            <img src={`${imageSRC}`} alt={title} width={360} height={200} />
+          </ImageWrapper>
+          <div>
+            <Title>
+              {title} ({release_date.slice(0, 4)})
+            </Title>
+            <ul>
+              <InfoItem>
+                <p>User Score: {userScore}%</p>
+              </InfoItem>
+              <InfoItem>
+                <b>Overview</b>
 
-              <p>{overview}</p>
-            </li>
-            <li>
-              <b>Genres:</b>
+                <p>{overview}</p>
+              </InfoItem>
+              <InfoItem>
+                <b>Genres</b>
 
-              <p>{movieGenres}</p>
-            </li>
-          </ul>
-        </div>
-      </MovieCard>
-      <div>
+                <p>{movieGenres}</p>
+              </InfoItem>
+            </ul>
+          </div>
+        </MovieCard>
+      </Wrapper>
+      <ExtraInfoSection>
         <h3> Additional information</h3>
         <div>
           <ul>
-            <li>
+            <ListItem>
               <InfoLink to="cast">Cast</InfoLink>
-            </li>
+            </ListItem>
 
-            <li>
+            <ListItem>
               <InfoLink to="reviews"> Reviews</InfoLink>
-            </li>
+            </ListItem>
           </ul>
         </div>
-      </div>
+      </ExtraInfoSection>
 
       <Outlet />
-    </div>
+    </>
   );
 };
 

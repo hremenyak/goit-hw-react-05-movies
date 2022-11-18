@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { getMoviesByName } from 'services/api';
-import { List, ListItem, MovieLink, Button } from './Movies.styled';
+import { List, ListItem, MovieLink, Button, Input } from './Movies.styled';
 
 const Movies = () => {
-  const [movieName, setMovieName] = useState('');
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const location = useLocation();
+  const fullPath = location.pathname + location.search;
+  const movieName = searchParams.get('query');
 
   const handleSubmit = e => {
     e.preventDefault();
     const movieName = e.target.movie.value;
-    setMovieName(movieName);
-    // console.log('submit', movieName);
+    setSearchParams({ query: movieName });
   };
 
   useEffect(() => {
@@ -20,7 +24,6 @@ const Movies = () => {
       }
       try {
         const movies = await getMoviesByName(movieName);
-        console.log(movies.results, 'useEffect results after submit');
         setMovies(movies.results);
       } catch (e) {
         console.log(e, 'There has been a mistake');
@@ -32,15 +35,14 @@ const Movies = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="movie" placeholder="Enter the movie..." />
+        <Input type="text" name="movie" placeholder="Enter the movie..." />
         <Button type="submit">Search</Button>
       </form>
       <List>
-        {movies.map(movie => (
-          <ListItem key={movie.id}>
-            {' '}
-            <MovieLink to={`${movie.id}`}>
-              {movie.title || movie.name}
+        {movies.map(({ id, title, name }) => (
+          <ListItem key={id}>
+            <MovieLink to={`${id}`} state={{ from: fullPath }}>
+              {title || name}
             </MovieLink>
           </ListItem>
         ))}
