@@ -8,6 +8,7 @@ import {
   ImageWrapper,
   ExtraInfoSection,
   ListItem,
+  ExtraInfoTitle,
 } from './MovieDetails.styled';
 import { getMovieById } from 'services/api';
 import { MovieCard } from './MovieDetails.styled';
@@ -19,15 +20,19 @@ const IMAGEURL = 'https://image.tmdb.org/t/p/w500/';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const movieData = await getMovieById(movieId);
 
         setMovie(movieData);
       } catch (e) {
         console.log(e, 'There has been a mistake.');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -73,7 +78,7 @@ const MovieDetails = () => {
         </MovieCard>
       </Wrapper>
       <ExtraInfoSection>
-        <h3> Additional information</h3>
+        <ExtraInfoTitle> Additional information</ExtraInfoTitle>
         <div>
           <ul>
             <ListItem>
@@ -95,3 +100,4 @@ const MovieDetails = () => {
 export default MovieDetails;
 
 // add try catch !! to take care of errors hte english has no movie details
+// prop types

@@ -6,14 +6,18 @@ import { Item, Wrapper } from './Reviews.styled';
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
   const { movieId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const data = await getReviews(movieId);
         setReviews(data);
       } catch (e) {
         console.log(e, 'There has been a mistake');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();

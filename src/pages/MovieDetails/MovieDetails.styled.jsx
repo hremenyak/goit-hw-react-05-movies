@@ -47,3 +47,7 @@ export const ListItem = styled.li`
     margin-bottom: 10px;
   }
 `;
+
+export const ExtraInfoTitle = styled.h3`
+  margin-bottom: 10px;
+`;

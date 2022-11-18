@@ -6,6 +6,7 @@ import { List, ListItem, MovieLink, Button, Input } from './Movies.styled';
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const fullPath = location.pathname + location.search;
@@ -22,11 +23,14 @@ const Movies = () => {
       if (!movieName) {
         return;
       }
+      setIsLoading(true);
       try {
         const movies = await getMoviesByName(movieName);
         setMovies(movies.results);
       } catch (e) {
         console.log(e, 'There has been a mistake');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchdata();
@@ -38,15 +42,19 @@ const Movies = () => {
         <Input type="text" name="movie" placeholder="Enter the movie..." />
         <Button type="submit">Search</Button>
       </form>
-      <List>
-        {movies.map(({ id, title, name }) => (
-          <ListItem key={id}>
-            <MovieLink to={`${id}`} state={{ from: fullPath }}>
-              {title || name}
-            </MovieLink>
-          </ListItem>
-        ))}
-      </List>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <List>
+          {movies.map(({ id, title, name }) => (
+            <ListItem key={id}>
+              <MovieLink to={`${id}`} state={{ from: fullPath }}>
+                {title || name}
+              </MovieLink>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </div>
   );
 };

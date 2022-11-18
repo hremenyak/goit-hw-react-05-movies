@@ -8,16 +8,19 @@ const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
 const Cast = () => {
   const { movieId } = useParams();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const cast = await getCredits(movieId);
         setCast(cast);
       } catch (e) {
         console.log(e, 'There has been a mistake');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();

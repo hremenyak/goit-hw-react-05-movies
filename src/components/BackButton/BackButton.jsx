@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { BackLink } from './BackButton.styled';
 
 const BackButton = ({ children }) => {
@@ -9,4 +10,6 @@ const BackButton = ({ children }) => {
 
 export default BackButton;
 
-// backlink till the end
+BackButton.propTypes = {
+  children: PropTypes.node,
+};

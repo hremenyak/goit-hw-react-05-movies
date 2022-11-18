@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { TrendingMovieLink, List, ListItem } from './Home.styled';
 
 const Home = ({ trending }) => {
@@ -24,3 +25,7 @@ const Home = ({ trending }) => {
 };
 
 export default Home;
+
+Home.propTypes = {
+  trending: PropTypes.arrayOf(PropTypes.object),
+};
