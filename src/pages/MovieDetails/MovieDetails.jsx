@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import {
+  MovieCard,
   InfoItem,
   InfoLink,
   Title,
@@ -11,7 +12,6 @@ import {
   ExtraInfoTitle,
 } from './MovieDetails.styled';
 import { getMovieById } from 'services/api';
-import { MovieCard } from './MovieDetails.styled';
 import blankImage from '../../images/white_image.png';
 import BackButton from 'components/BackButton/BackButton';
 
@@ -30,7 +30,7 @@ const MovieDetails = () => {
 
         setMovie(movieData);
       } catch (e) {
-        console.log(e, 'There has been a mistake.');
+        console.log(e);
       } finally {
         setIsLoading(false);
       }
@@ -51,7 +51,6 @@ const MovieDetails = () => {
     <>
       <Wrapper>
         <BackButton>Go back</BackButton>
-
         {isLoading ? (
           <div>Loading...</div>
         ) : (
@@ -61,7 +60,7 @@ const MovieDetails = () => {
             </ImageWrapper>
             <div>
               <Title>
-                {title} {`(${releaseDate})`}
+                {title} {releaseDate && `(${releaseDate})`}
               </Title>
               <ul>
                 <InfoItem>
@@ -96,12 +95,9 @@ const MovieDetails = () => {
           </ul>
         </div>
       </ExtraInfoSection>
-
       <Outlet />
     </>
   );
 };
 
 export default MovieDetails;
-
-// lazy and suspense???

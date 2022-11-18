@@ -43,14 +43,15 @@ const Cast = () => {
               <ListItem key={id}>
                 <img src={imageSRC} alt={name} width={200} />
                 <div>
-                  {' '}
                   <p>
                     <span>{name}</span>
                   </p>
-                  <p>
-                    <b>Character:</b>
-                    <span> {character}</span>
-                  </p>
+                  {character && (
+                    <p>
+                      <b>Character:</b>
+                      <span> {character}</span>
+                    </p>
+                  )}
                 </div>
               </ListItem>
             );

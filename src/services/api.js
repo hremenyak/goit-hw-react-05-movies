@@ -12,8 +12,8 @@ export const getTrendingMovies = async () => {
 // movie details request
 
 export const getMovieById = async movieId => {
-  const { data } = await axios.get(`/movie/${movieId}?api_key=${KEY}`);
-  return data;
+  const res = await axios.get(`/movie/${movieId}?api_key=${KEY}`);
+  return res.data;
 };
 
 //cast info request
