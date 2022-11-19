@@ -29,8 +29,3 @@ export const App = () => {
 };
 
 // lazy && suspense
-//back link
-// error handling
-//loaders
-//pages vs components
-//images - css

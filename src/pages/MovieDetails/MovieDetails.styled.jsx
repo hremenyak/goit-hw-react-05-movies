@@ -59,7 +59,7 @@ export const MovieInfo = styled.div`
 
 export const BackButton = styled.button`
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border: transparent;
   outline: none;
   margin-left: 10px;

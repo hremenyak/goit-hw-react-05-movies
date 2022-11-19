@@ -12,7 +12,11 @@ export const getTrendingMovies = async () => {
 // movie details request
 
 export const getMovieById = async movieId => {
-  const res = await axios.get(`/movie/${movieId}?api_key=${KEY}`);
+  const res = await axios
+    .get(`/movie/${movieId}?api_key=${KEY}`)
+    .catch(error => {
+      throw new Error('Oops... seems like an error occured.');
+    });
   return res.data;
 };
 

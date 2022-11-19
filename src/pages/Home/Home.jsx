@@ -13,7 +13,7 @@ const Home = () => {
         const trendingMovies = await getTrendingMovies();
         setTrendingMovies(trendingMovies);
       } catch (e) {
-        console.log(e, 'trending error');
+        console.log(e);
       } finally {
         setIsLoading(false);
       }

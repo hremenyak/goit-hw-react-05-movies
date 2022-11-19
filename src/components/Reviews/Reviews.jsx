@@ -4,7 +4,7 @@ import { getReviews } from 'services/api';
 import { Item, Wrapper } from './Reviews.styled';
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,10 +22,6 @@ const Reviews = () => {
     };
     fetchData();
   }, [movieId]);
-
-  if (!reviews) {
-    return;
-  }
 
   return (
     <div>
