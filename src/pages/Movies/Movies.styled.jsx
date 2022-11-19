@@ -27,7 +27,7 @@ export const Button = styled.button`
   margin-left: 8px;
   font-weight: 500;
   :hover {
-    background-color: #eb1c45;
+    background-color: #d2042d;
     color: white;
   }
 `;

@@ -10,6 +10,7 @@ import {
   ExtraInfoSection,
   ListItem,
   ExtraInfoTitle,
+  MovieInfo,
 } from './MovieDetails.styled';
 import { getMovieById } from 'services/api';
 import blankImage from '../../images/white_image.png';
@@ -47,6 +48,7 @@ const MovieDetails = () => {
   const userScore = Math.round((Number(vote_average) * 100) / 10);
   const movieGenres = genres.map(genre => genre.name).join(' ');
   const releaseDate = release_date.slice(0, 4);
+
   return (
     <>
       <Wrapper>
@@ -56,15 +58,15 @@ const MovieDetails = () => {
         ) : (
           <MovieCard>
             <ImageWrapper>
-              <img src={`${imageSRC}`} alt={title} width={360} height={200} />
+              <img src={`${imageSRC}`} alt={title} />
             </ImageWrapper>
-            <div>
+            <MovieInfo>
               <Title>
                 {title} {releaseDate && `(${releaseDate})`}
               </Title>
               <ul>
                 <InfoItem>
-                  <p>User Score: {userScore}%</p>
+                  {userScore > 0 && <p>User Score: {userScore}%</p>}
                 </InfoItem>
                 <InfoItem>
                   <b>Overview</b>
@@ -74,10 +76,10 @@ const MovieDetails = () => {
                 <InfoItem>
                   <b>Genres</b>
 
-                  <p>{movieGenres}</p>
+                  <p>{movieGenres || ' - '}</p>
                 </InfoItem>
               </ul>
-            </div>
+            </MovieInfo>
           </MovieCard>
         )}
       </Wrapper>
