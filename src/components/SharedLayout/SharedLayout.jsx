@@ -13,5 +13,3 @@ const SharedLayout = () => {
 };
 
 export default SharedLayout;
-
-//OUTLET TO ADD

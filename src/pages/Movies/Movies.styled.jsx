@@ -26,6 +26,9 @@ export const Button = styled.button`
   outline: none;
   margin-left: 8px;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   :hover {
     background-color: #d2042d;
     color: white;

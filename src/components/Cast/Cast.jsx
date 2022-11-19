@@ -63,6 +63,9 @@ const Cast = () => {
           })}
         </List>
       )}
+      {!cast.length && (
+        <p>There is no information about the cast of this film yet. Sorry...</p>
+      )}
     </Section>
   );
 };

@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, useLocation, useNavigate } from 'react-router-dom';
+import { TiChevronLeft } from 'react-icons/ti';
+import { getMovieById } from 'services/api';
+import blankImage from '../../images/white_image.png';
 import {
   MovieCard,
   InfoItem,
@@ -11,10 +14,8 @@ import {
   ListItem,
   ExtraInfoTitle,
   MovieInfo,
+  BackButton,
 } from './MovieDetails.styled';
-import { getMovieById } from 'services/api';
-import blankImage from '../../images/white_image.png';
-import BackButton from 'components/BackButton/BackButton';
 
 const IMAGEURL = 'https://image.tmdb.org/t/p/w500/';
 
@@ -22,6 +23,8 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +42,9 @@ const MovieDetails = () => {
     fetchData();
   }, [movieId]);
 
+  const handleGoBackButton = () => {
+    navigate(location.state.from);
+  };
   if (!movie) {
     return;
   }
@@ -52,7 +58,12 @@ const MovieDetails = () => {
   return (
     <>
       <Wrapper>
-        <BackButton>Go back</BackButton>
+        {location.state?.from && (
+          <BackButton onClick={handleGoBackButton}>
+            <TiChevronLeft />
+            <span>Go back</span>
+          </BackButton>
+        )}
         {isLoading ? (
           <div>Loading...</div>
         ) : (
@@ -88,11 +99,16 @@ const MovieDetails = () => {
         <div>
           <ul>
             <ListItem>
-              <InfoLink to="cast">Cast</InfoLink>
+              <InfoLink to="cast" state={location.state}>
+                Cast
+              </InfoLink>
             </ListItem>
 
             <ListItem>
-              <InfoLink to="reviews"> Reviews</InfoLink>
+              <InfoLink to="reviews" state={location.state}>
+                {' '}
+                Reviews
+              </InfoLink>
             </ListItem>
           </ul>
         </div>

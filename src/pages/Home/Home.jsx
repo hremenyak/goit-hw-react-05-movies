@@ -1,36 +1,33 @@
-import { Outlet, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { TrendingMovieLink, List, ListItem } from './Home.styled';
+import { useState, useEffect } from 'react';
+import MovieList from 'components/MovieList/MovieList';
+import { getTrendingMovies } from 'services/api';
 
-const Home = ({ trending, loading }) => {
-  const location = useLocation();
+const Home = () => {
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const trendingMovies = await getTrendingMovies();
+        setTrendingMovies(trendingMovies);
+      } catch (e) {
+        console.log(e, 'trending error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <main>
       <h1> Trending today</h1>
-      {loading ? (
-        <div>Loading</div>
-      ) : (
-        <List>
-          {trending.map(({ id, title, name }) => (
-            <ListItem key={id}>
-              <TrendingMovieLink
-                to={`movies/${id}`}
-                state={{ from: location.pathname }}
-              >
-                {title || name}
-              </TrendingMovieLink>
-            </ListItem>
-          ))}
-        </List>
-      )}
-      <Outlet />
+      <MovieList trending={trendingMovies} loading={isLoading} />
     </main>
   );
 };
 
 export default Home;
-
-Home.propTypes = {
-  trending: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool,
-};

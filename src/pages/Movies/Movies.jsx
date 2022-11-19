@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { getMoviesByName } from 'services/api';
 import { List, ListItem, MovieLink, Button, Input } from './Movies.styled';
 
@@ -40,7 +41,10 @@ const Movies = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <Input type="text" name="movie" placeholder="Enter the movie..." />
-        <Button type="submit">Search</Button>
+        <Button type="submit">
+          Search
+          <AiOutlineSearch />
+        </Button>
       </form>
       {isLoading ? (
         <p>Loading...</p>
@@ -60,7 +64,3 @@ const Movies = () => {
 };
 
 export default Movies;
-
-//LOADER
-
-//

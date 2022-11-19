@@ -56,3 +56,20 @@ export const MovieInfo = styled.div`
   width: 500px;
   text-align: justify;
 `;
+
+export const BackButton = styled.button`
+  border-radius: 6px;
+  padding: 5px 10px;
+  border: transparent;
+  outline: none;
+  margin-left: 10px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  background-color: #eb1c45;
+  color: white;
+  text-decoration: none;
+`;
