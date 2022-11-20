@@ -105,7 +105,6 @@ const MovieDetails = () => {
 
             <ListItem>
               <InfoLink to="reviews" state={location.state}>
-                {' '}
                 Reviews
               </InfoLink>
             </ListItem>

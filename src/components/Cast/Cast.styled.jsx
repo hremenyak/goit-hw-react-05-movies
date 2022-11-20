@@ -8,7 +8,7 @@ export const ListItem = styled.li`
 `;
 
 export const Section = styled.section`
-  padding: 15px 0;
+  padding: 15px 10;
 `;
 
 export const List = styled.ul`

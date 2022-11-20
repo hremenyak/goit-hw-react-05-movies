@@ -12,3 +12,7 @@ export const Wrapper = styled.div`
   margin-top: 10px;
   padding: 10px;
 `;
+
+export const Section = styled.section`
+  padding: 15px 10px;
+`;

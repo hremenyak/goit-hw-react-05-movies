@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/api';
-import { Item, Wrapper } from './Reviews.styled';
+import { Item, Wrapper, Section } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -24,24 +24,26 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <Section>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Wrapper>
+        <>
           {reviews.length > 0 &&
             reviews.map(({ id, author, content }) => (
-              <Item key={id}>
-                <p>
-                  <b>Author: {author}</b>
-                </p>
-                <p>"{content}"</p>
-              </Item>
+              <Wrapper>
+                <Item key={id}>
+                  <p>
+                    <b>Author: {author}</b>
+                  </p>
+                  <p>"{content}"</p>
+                </Item>
+              </Wrapper>
             ))}
-        </Wrapper>
+        </>
       )}
       {!reviews.length && <p>There are no reviews for this film yet.</p>}
-    </div>
+    </Section>
   );
 };
 
