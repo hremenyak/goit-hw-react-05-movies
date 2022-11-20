@@ -1,8 +1,8 @@
-import { ListItem, InfoLink } from './NotFound.styled';
+import { ListItem, InfoLink, Wrapper } from './NotFound.styled';
 const NotFound = () => {
   return (
-    <div>
-      <h1>{"Oops seems like we can't find the page you were looking for."}</h1>
+    <Wrapper>
+      <h1>{'Oops... Seems like something went wrong.'}</h1>
       <p>Here are some helpful links:</p>
       <ul>
         <ListItem>
@@ -13,7 +13,7 @@ const NotFound = () => {
           <InfoLink to="/movies">Movies</InfoLink>{' '}
         </ListItem>
       </ul>
-    </div>
+    </Wrapper>
   );
 };
 

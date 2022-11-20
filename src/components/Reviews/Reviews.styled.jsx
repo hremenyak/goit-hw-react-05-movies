@@ -10,4 +10,5 @@ export const Item = styled.li`
 
 export const Wrapper = styled.div`
   margin-top: 10px;
+  padding: 10px;
 `;

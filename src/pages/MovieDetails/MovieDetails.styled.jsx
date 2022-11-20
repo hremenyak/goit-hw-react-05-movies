@@ -18,7 +18,7 @@ export const InfoLink = styled(Link)`
   font-weight: 500;
 
   :hover {
-    color: #d2042d;
+    color: #ab47bc;
   }
 `;
 
@@ -69,7 +69,10 @@ export const BackButton = styled.button`
   align-items: center;
   cursor: pointer;
 
-  background-color: #eb1c45;
+  background-color: #ab47bc;
   color: white;
   text-decoration: none;
+  &:hover {
+    background-color: #773183;
+  }
 `;

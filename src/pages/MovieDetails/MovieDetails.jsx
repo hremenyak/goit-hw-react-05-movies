@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Outlet, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { TiChevronLeft } from 'react-icons/ti';
 import { getMovieById } from 'services/api';
@@ -112,7 +112,10 @@ const MovieDetails = () => {
           </ul>
         </div>
       </ExtraInfoSection>
-      <Outlet />
+
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

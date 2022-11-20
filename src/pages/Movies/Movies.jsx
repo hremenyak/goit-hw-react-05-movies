@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import Input from '@mui/material/Input';
+import Button from '@mui/material/Button';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getMoviesByName } from 'services/api';
-import { List, ListItem, MovieLink, Button, Input } from './Movies.styled';
+import { List, ListItem, MovieLink, Form } from './Movies.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -15,8 +19,15 @@ const Movies = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const movieName = e.target.movie.value;
-    setSearchParams({ query: movieName });
+    const query = e.target.movie.value;
+    if (!query) {
+      toast('Enter please a movie name.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+    }
+
+    setSearchParams(query !== '' ? { query } : {});
   };
 
   useEffect(() => {
@@ -29,7 +40,7 @@ const Movies = () => {
         const movies = await getMoviesByName(movieName);
         setMovies(movies.results);
       } catch (e) {
-        console.log(e, 'There has been a mistake');
+        console.log(e);
       } finally {
         setIsLoading(false);
       }
@@ -39,13 +50,25 @@ const Movies = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <Input type="text" name="movie" placeholder="Enter the movie..." />
-        <Button type="submit">
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="movie"
+          placeholder="Enter the movie..."
+          autoComplete="off"
+          color="secondary"
+        />
+        <Button
+          type="submit"
+          variant="outlined"
+          color="secondary"
+          size="small"
+          endIcon={<AiOutlineSearch />}
+        >
           Search
-          <AiOutlineSearch />
         </Button>
-      </form>
+      </Form>
+      <ToastContainer />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
