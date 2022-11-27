@@ -10,9 +10,9 @@ import { List, ListItem, MovieLink, Form } from './Movies.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-
   const location = useLocation();
   const fullPath = location.pathname + location.search;
   const movieName = searchParams.get('query');
@@ -26,7 +26,6 @@ const Movies = () => {
         autoClose: 3000,
       });
     }
-
     setSearchParams(query !== '' ? { query } : {});
   };
 
@@ -57,6 +56,7 @@ const Movies = () => {
           placeholder="Enter the movie..."
           autoComplete="off"
           color="secondary"
+          defaultValue={movieName}
         />
         <Button
           type="submit"
@@ -69,19 +69,20 @@ const Movies = () => {
         </Button>
       </Form>
       <ToastContainer />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <List>
-          {movies.map(({ id, title, name }) => (
-            <ListItem key={id}>
-              <MovieLink to={`${id}`} state={{ from: fullPath }}>
-                {title || name}
-              </MovieLink>
-            </ListItem>
-          ))}
-        </List>
-      )}
+      <>
+        {isLoading && <p>Loading...</p>}
+        {movieName && (
+          <List>
+            {movies.map(({ id, title, name }) => (
+              <ListItem key={id}>
+                <MovieLink to={`${id}`} state={{ from: fullPath }}>
+                  {title || name}
+                </MovieLink>
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </>
     </div>
   );
 };
